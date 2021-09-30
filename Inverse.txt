@@ -1,0 +1,27 @@
+##Inverse of a Matrix Program
+##This involves Make Cache Matrix and cache Solve as its functions
+
+makeCacheMatrix <- function(t = matrix()) {
+  inbers <- NULL
+    get <- function() t
+    set <- function(u) {
+      t <<- u
+      inbers <<- NULL
+    }
+    getinbers <- function() inbers
+    setinbers <- function(inverse) inbers <<- inverse
+    list(get=get, set=set, getinbers=getinbers, setinbers=setinbers)
+}
+
+##Second Function
+cacheSolve <- function(t, ...) {
+  inbers <- t$getinbers()
+  if (!is.null(inbers)) {
+    message("inverse is cached")
+    return(inbers)
+  }
+  m <- t$get()
+  inbers <- solve(m, ...)
+  t$setinbers(inbers)
+  return(inbers)
+}
