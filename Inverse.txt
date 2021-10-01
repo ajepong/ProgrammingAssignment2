@@ -1,27 +1,33 @@
-##Inverse of a Matrix Program
-##This involves Make Cache Matrix and cache Solve as its functions
 
-makeCacheMatrix <- function(t = matrix()) {
-  inbers <- NULL
-    get <- function() t
-    set <- function(u) {
-      t <<- u
-      inbers <<- NULL
+## R Programming Week 3 Assignment
+## Azriel Jhoy Epong - Inverse of a Matrix
+
+## This function cache the inverse of a matrix
+
+makeCacheMatrix <- function(p = matrix()) { 
+    invrs <- NULL                           ## this will hold the value of the inverse of the matrix
+    set <- function(q) {                    
+        p <<- q                            
+        invrs <<- NULL                      ## this indicates that for every new matrix, invrs is set to NULL
     }
-    getinbers <- function() inbers
-    setinbers <- function(inverse) inbers <<- inverse
-    list(get=get, set=set, getinbers=getinbers, setinbers=setinbers)
+    get <- function() p                     
+
+    setinvers <- function(invers) invrs <<- invers          ## parent environment
+    getinvers <- function() invrs                     
+    list(set = set, get = get, setinvers = setinvers, getinvers = getinvers)  
 }
 
-##Second Function
-cacheSolve <- function(t, ...) {
-  inbers <- t$getinbers()
-  if (!is.null(inbers)) {
-    message("inverse is cached")
-    return(inbers)
-  }
-  m <- t$get()
-  inbers <- solve(m, ...)
-  t$setinbers(inbers)
-  return(inbers)
+## TThe next function computes the inverse of the matrix from the previous function
+
+cacheSolve <- function(p, ...) {
+        ## inverse of the given set p must be returned as a matrix
+    inv <- p$getinvers()
+    if(!is.null(invrs)) {
+        message("Inverse Cached")
+        return(invrs)
+    }
+    data <- p$get()
+    invrs <- solve(data, ...)
+    p$setinvers(invrs)
+    invrs
 }
